@@ -16,7 +16,6 @@ services:
     volumes:
       - './wal-g.json:/wal-g.json'
       - './wal-g-storage:/wal-g-storage'
-      # - 'primary-data:/var/lib/postgresql/data'
       - './primary-data:/data'
       - './primary-config:/custom-pg-configs'
   replica:
@@ -34,12 +33,5 @@ services:
     volumes:
       - './wal-g.json:/wal-g.json'
       - './wal-g-storage:/wal-g-storage'
-      # - 'replica-data:/var/lib/postgresql/data'
       - './replica-data:/data'
       - './replica-config:/custom-pg-configs'
-
-# volumes:
-#   primary-data:
-#     driver: local
-#   replica-data:
-#     driver: local

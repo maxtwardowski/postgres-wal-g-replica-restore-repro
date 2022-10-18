@@ -2,7 +2,7 @@
 1. Add include_dir directive to the config: `sudo sh -c "echo \"include_dir = '/custom-pg-configs'\" >> ./primary-data/postgresql.conf"`
 1. Add restore_command to the config: `sudo sh -c "echo \"restore_command = '/usr/local/bin/wal-g --config /wal-g.json wal-fetch %f %p'\" >> ./primary-data/postgresql.conf"`
 1. Start the primary container: `docker compose up -d primary`
-1. Access the primary container with `docker exec -it primary /bin/bash` to execute the instructions below:
+1. Access the primary container with `docker exec -it primary /bin/bash` and execute the instructions below:
     1. Set owner of the WAL-G storage directory to postgres: `chown -R postgres:postgres /wal-g-storage`
     1. Switch user to postgres: `su - postgres`
     1. Make sure user postgres has explicit replication rights and insert some test data with psql: `psql -c "alter user postgres replication;create table test (value text primary key);insert into test values ('test1');"`
