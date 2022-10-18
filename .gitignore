@@ -1,3 +1,5 @@
 wal-g-storage
 primary-data
 replica-data
+primary-config
+replica-config

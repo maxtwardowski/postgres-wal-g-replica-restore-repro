@@ -9,8 +9,8 @@
     1. Create a WAL-G backup: `wal-g --config /wal-g.json backup-push /data`
     1. Exit the container (e.g. with CTRL+D) and kill the Compose stack: `docker compose down`
 1. Remove primary's data directory: `sudo rm -rf ./primary-data`
-1. Fetch the backup in primary: `docker run -v $HOME/walg_replica_repro/primary-data:/data -v $HOME/walg_replica_repro/wal-g.json:/wal-g.json -v $HOME/walg_replica_repro/wal-g-storage:/wal-g-storage postgres:latest wal-g --config /wal-g.json backup-fetch /data ${REPLACE_WITH_BACKUP_NAME}`. Name of the backup is the name of the directory created in ./wal-g-storage/basebackups_xyz
-1. Fetch the backup in replica: `docker run -v $HOME/walg_replica_repro/replica-data:/data -v $HOME/walg_replica_repro/wal-g.json:/wal-g.json -v $HOME/walg_replica_repro/wal-g-storage:/wal-g-storage postgres:latest wal-g --config /wal-g.json backup-fetch /data ${REPLACE_WITH_BACKUP_NAME}`
+1. Fetch the backup in primary: `docker run --rm -v $HOME/walg_replica_repro/primary-data:/data -v $HOME/walg_replica_repro/wal-g.json:/wal-g.json -v $HOME/walg_replica_repro/wal-g-storage:/wal-g-storage postgres:latest wal-g --config /wal-g.json backup-fetch /data ${REPLACE_WITH_BACKUP_NAME}`. Name of the backup is the name of the directory created in ./wal-g-storage/basebackups_xyz
+1. Fetch the backup in replica: `docker run --rm -v $HOME/walg_replica_repro/replica-data:/data -v $HOME/walg_replica_repro/wal-g.json:/wal-g.json -v $HOME/walg_replica_repro/wal-g-storage:/wal-g-storage postgres:latest wal-g --config /wal-g.json backup-fetch /data ${REPLACE_WITH_BACKUP_NAME}`
 1. Prepare primary's config for restoring from backup by copying `./primary_restore.conf` file to `./primary-config`: `cp ./primary_restore.conf ./primary-config/primary_restore.conf`
 1. Prepare replica's config for restoring from backup by copying `./replica_restore.conf` file to `./replica-config`: `cp ./replica_restore.conf ./replica-config/replica_restore.conf`
 1. Create recovery signal in primary's data directory: `sudo touch ./primary-data/recovery.signal`
