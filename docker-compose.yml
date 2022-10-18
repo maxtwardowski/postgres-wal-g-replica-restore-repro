@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  primary:
+    build: ./postgres
+    container_name: primary
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data
+    ports:
+      - '5432:5432'
+    volumes:
+      - './wal-g.json:/wal-g.json'
+      - './wal-g-storage:/wal-g-storage'
+      # - 'primary-data:/var/lib/postgresql/data'
+      - './primary-data:/data'
+      - './primary-config:/custom-pg-configs'
+  replica:
+    build: ./postgres
+    container_name: replica
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data
+    ports:
+      - '5433:5432'
+    volumes:
+      - './wal-g.json:/wal-g.json'
+      - './wal-g-storage:/wal-g-storage'
+      # - 'replica-data:/var/lib/postgresql/data'
+      - './replica-data:/data'
+      - './replica-config:/custom-pg-configs'
+
+# volumes:
+#   primary-data:
+#     driver: local
+#   replica-data:
+#     driver: local

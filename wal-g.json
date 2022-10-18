@@ -1,0 +1,13 @@
+{
+    "PGHOST": "localhost",
+    "PGUSER": "postgres",
+    "PGPASSWORD": "postgres",
+    "PGDATABASE": "postgres",
+    "PGPORT": "5432",
+    "PGDATA": "/var/lib/postgresql/data",
+    "WALG_COMPRESSION_METHOD": "lz4",
+    "WALG_UPLOAD_CONCURRENCY": "24",
+    "WALG_UPLOAD_DISK_CONCURRENCY": "4",
+    "WALG_DOWNLOAD_CONCURRENCY": "16",
+    "WALG_FILE_PREFIX": "/wal-g-storage"
+}
