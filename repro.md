@@ -6,4 +6,5 @@
     1. Create a WAL-G backup: `wal-g --config /wal-g.json backup-push /var/lib/postgresql/data`
     1. Exit the container (e.g. with CTRL+D) and kill the Compose stack: `docker compose down`
 1. Remove the volume with primary's data directory: `docker volume rm walg_replica_repro_primary-data`
-1. 
+1. Fetch the backup in primary: `docker run -v $HOME/walg_replica_repro/primary-data:/data -v $HOME/walg_replica_repro/wal-g.json:/wal-g.json -v $HOME/walg_replica_repro/wal-g-storage:/wal-g-storage postgres:latest wal-g --config /wal-g.json backup-fetch /data ${REPLACE_WITH_BACKUP_NAME}`
+1. Fetch the backup in replica: `docker run -v $HOME/walg_replica_repro/replica-data:/data -v $HOME/walg_replica_repro/wal-g.json:/wal-g.json -v $HOME/walg_replica_repro/wal-g-storage:/wal-g-storage postgres:latest wal-g --config /wal-g.json backup-fetch /data ${REPLACE_WITH_BACKUP_NAME}`
