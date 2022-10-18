@@ -5,7 +5,6 @@ services:
     build: ./postgres
     container_name: primary
     image: postgres:latest
-    restart: unless-stopped
     environment:
       POSTGRES_HOST_AUTH_METHOD: scram-sha-256
       POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
@@ -24,7 +23,6 @@ services:
     build: ./postgres
     container_name: replica
     image: postgres:latest
-    restart: unless-stopped
     environment:
       POSTGRES_HOST_AUTH_METHOD: scram-sha-256
       POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
